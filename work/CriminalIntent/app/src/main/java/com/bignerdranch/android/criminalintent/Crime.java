@@ -9,7 +9,9 @@ import java.util.UUID;
  */
 public class Crime {
     private static final String CRIME_DATE_FORMAT = "EEEE, MMM dd, yyyy"; // Tuesday, Sep 06, 2016
-    private static final String CRIME_TIME_FORMAT = "HH:mm"; // 20:23
+    private static final String CRIME_TIME_FORMAT = " HH:mm"; // 20:23
+    private static final String CRIME_DATE_TIME_FORMAT = CRIME_DATE_FORMAT + CRIME_TIME_FORMAT; // Tuesday, Sep 06, 2016 20:23
+
     private UUID mId;
     private String mTitle;
     private Date mDate;
@@ -17,12 +19,14 @@ public class Crime {
 
     private SimpleDateFormat mCrimeDateFormat;
     private SimpleDateFormat mCrimeTimeFormat;
+    private SimpleDateFormat mCrimeDateTimeFormat;
 
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
         mCrimeDateFormat = new SimpleDateFormat(CRIME_DATE_FORMAT);
         mCrimeTimeFormat = new SimpleDateFormat(CRIME_TIME_FORMAT);
+        mCrimeDateTimeFormat = new SimpleDateFormat(CRIME_DATE_TIME_FORMAT);
     }
 
     public Date getDate() {
@@ -59,5 +63,9 @@ public class Crime {
 
     public String getTimeAsString() {
         return mCrimeTimeFormat.format(getDate());
+    }
+
+    public String getDateTimeAsString() {
+        return mCrimeDateTimeFormat.format(getDate());
     }
 }

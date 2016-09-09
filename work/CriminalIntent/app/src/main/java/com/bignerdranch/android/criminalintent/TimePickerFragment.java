@@ -23,6 +23,7 @@ import java.util.GregorianCalendar;
 public class TimePickerFragment extends DialogFragment {
     public static final String EXTRA_TIME = "com.bignerdranch.android.criminalintent.time";
     private static final String ARG_TIME = "time";
+    private static final boolean USE_24_HOUR = true;
     private TimePicker mTimePicker;
 
     public static TimePickerFragment newInstance(Date date) {
@@ -52,6 +53,8 @@ public class TimePickerFragment extends DialogFragment {
         mTimePicker = (TimePicker) view.findViewById(R.id.dialog_time_time_picker);
 
         if (mTimePicker != null) {
+            mTimePicker.setIs24HourView(USE_24_HOUR);
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 mTimePicker.setHour(hour);
                 mTimePicker.setMinute(minute);
