@@ -25,11 +25,13 @@ import java.util.UUID;
 public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "dialog_date";
+    private static final String DIALOG_TIME = "dialog_time";
     private static final int REQUEST_DATE = 0;
 
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
 
     public static CrimeFragment newInstance(UUID crimeId) {
@@ -82,7 +84,6 @@ public class CrimeFragment extends Fragment {
         mDateButton = (Button) view.findViewById(R.id.crime_date);
 
         if (mDateButton != null) {
-            updateDate();
             mDateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -93,6 +94,22 @@ public class CrimeFragment extends Fragment {
                 }
             });
         }
+
+        mTimeButton = (Button) view.findViewById(R.id.crime_time);
+
+        if (mTimeButton != null) {
+            mTimeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FragmentManager manager = getFragmentManager();
+                    DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                    dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                    dialog.show(manager, DIALOG_DATE);
+                }
+            });
+        }
+
+        updateDateTime();
 
         mSolvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved);
 
@@ -119,11 +136,12 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
-            updateDate();
+            updateDateTime();
         }
     }
 
-    private void updateDate() {
+    private void updateDateTime() {
         mDateButton.setText(mCrime.getDateAsString());
+        mTimeButton.setText(mCrime.getTimeAsString());
     }
 }
