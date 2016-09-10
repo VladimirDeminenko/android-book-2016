@@ -94,6 +94,8 @@ public class CrimeFragment extends Fragment {
                     dialog.show(manager, DIALOG_DATE);
                 }
             });
+
+            updateDate();
         }
 
         mTimeButton = (Button) view.findViewById(R.id.crime_time);
@@ -108,9 +110,9 @@ public class CrimeFragment extends Fragment {
                     dialog.show(manager, DIALOG_TIME);
                 }
             });
-        }
 
-        updateDateTime();
+            updateTime();
+        }
 
         mSolvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved);
 
@@ -137,18 +139,21 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
-            updateDateTime();
+            updateDate();
         }
 
         if (requestCode == REQUEST_TIME) {
             Date date = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             mCrime.setDate(date);
-            updateDateTime();
+            updateTime();
         }
     }
 
-    private void updateDateTime() {
+    private void updateDate() {
         mDateButton.setText(mCrime.getDateAsString());
+    }
+
+    private void updateTime() {
         mTimeButton.setText(mCrime.getTimeAsString());
     }
 }
