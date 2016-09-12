@@ -60,4 +60,13 @@ public class CrimePagerActivity extends AppCompatActivity {
             }
         }
     }
+
+    @Nullable
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        Intent intent = super.getSupportParentActivityIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        return intent;
+    }
 }
