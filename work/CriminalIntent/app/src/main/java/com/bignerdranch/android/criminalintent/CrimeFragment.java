@@ -146,15 +146,15 @@ public class CrimeFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.menu_item_delete_crime:
                 CrimeLab crimeLab = CrimeLab.get(getActivity());
-                String crimeTitle = mCrime.getTitle();
+                String message = mCrime.getTitle();
 
                 if (crimeLab != null && crimeLab.removeCrime(mCrime)) {
-                    crimeTitle = getResources().getString(R.string.crime_has_been_deleted, crimeTitle);
-                    Toast.makeText(getActivity(), crimeTitle, Toast.LENGTH_SHORT).show();
+                    message = getResources().getString(R.string.crime_has_been_deleted, message);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 } else {
-                    crimeTitle = getResources().getString(R.string.crime_not_found, crimeTitle);
-                    Toast.makeText(getActivity(), crimeTitle, Toast.LENGTH_SHORT).show();
+                    message = getResources().getString(R.string.crime_not_found, message);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
 
                 return true;
