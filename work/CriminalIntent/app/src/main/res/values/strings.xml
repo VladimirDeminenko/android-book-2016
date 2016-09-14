@@ -12,6 +12,7 @@
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$s crimes</string>
+    <string name="crime_list_is_empty">The crime list is empty</string>
     <string name="delete_crime">Remove Crime</string>
     <string name="crime_not_found_format">The Crime \"%1$s\" was not found</string>
     <string name="crime_has_been_deleted_format">The Crime \"%1$s\" has been deleted</string>

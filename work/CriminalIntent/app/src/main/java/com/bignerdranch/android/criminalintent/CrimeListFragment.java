@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecycleView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private View emptyTextView;
+    private View newCrimeButton;
+    private MenuItem newCrimeMenuItem;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +49,9 @@ public class CrimeListFragment extends Fragment {
         if (savedInstanceState != null) {
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
+
+        emptyTextView = getActivity().findViewById(R.id.crime_list_is_empty_text_view);
+        newCrimeButton = getActivity().findViewById(R.id.new_crime_button);
 
         updateUI();
 
@@ -78,6 +86,15 @@ public class CrimeListFragment extends Fragment {
                 subtitleItem.setTitle(R.string.show_subtitle);
             }
         }
+
+        newCrimeMenuItem = menu.findItem(R.id.menu_item_new_crime);
+
+        newCrimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onOptionsItemSelected(newCrimeMenuItem);
+            }
+        });
     }
 
     @Override
@@ -122,7 +139,18 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+    private void setVisibility(View view, boolean isVisible) {
+        if (view != null) {
+            if (isVisible) {
+                view.setVisibility(View.VISIBLE);
+            } else {
+                view.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
     private void updateUI() {
+
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
 
@@ -134,6 +162,10 @@ public class CrimeListFragment extends Fragment {
         }
 
         updateSubtitle();
+
+        boolean isVisible = crimes.size() == 0;
+        setVisibility(emptyTextView, isVisible);
+        setVisibility(newCrimeButton, isVisible);
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
