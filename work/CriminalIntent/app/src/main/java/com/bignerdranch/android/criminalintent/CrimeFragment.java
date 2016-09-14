@@ -149,11 +149,11 @@ public class CrimeFragment extends Fragment {
                 String message = mCrime.getTitle();
 
                 if (crimeLab != null && crimeLab.removeCrime(mCrime)) {
-                    message = getResources().getString(R.string.crime_has_been_deleted, message);
+                    message = getResources().getString(R.string.crime_has_been_deleted_format, message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     getActivity().finish();
                 } else {
-                    message = getResources().getString(R.string.crime_not_found, message);
+                    message = getResources().getString(R.string.crime_not_found_format, message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                 }
 

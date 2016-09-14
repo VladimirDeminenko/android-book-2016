@@ -13,6 +13,10 @@
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$s crimes</string>
     <string name="delete_crime">Remove Crime</string>
-    <string name="crime_not_found">The Crime \"%1$s\" was not found</string>
-    <string name="crime_has_been_deleted">The Crime \"%1$s\" has been deleted</string>
+    <string name="crime_not_found_format">The Crime \"%1$s\" was not found</string>
+    <string name="crime_has_been_deleted_format">The Crime \"%1$s\" has been deleted</string>
+    <plurals name="subtitle_plural">
+        <item quantity="one">%1$s crime</item>
+        <item quantity="other">%1$s crimes</item>
+    </plurals>
 </resources>
