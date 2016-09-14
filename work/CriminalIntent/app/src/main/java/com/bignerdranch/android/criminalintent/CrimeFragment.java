@@ -9,12 +9,16 @@ import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Date;
 import java.util.UUID;
@@ -48,6 +52,7 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
@@ -131,6 +136,35 @@ public class CrimeFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_crime, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_delete_crime:
+                CrimeLab crimeLab = CrimeLab.get(getActivity());
+                String crimeTitle = mCrime.getTitle();
+
+                if (crimeLab != null && crimeLab.removeCrime(mCrime)) {
+                    crimeTitle = getResources().getString(R.string.crime_has_been_deleted, crimeTitle);
+                    Toast.makeText(getActivity(), crimeTitle, Toast.LENGTH_SHORT).show();
+                    getActivity().finish();
+                } else {
+                    crimeTitle = getResources().getString(R.string.crime_not_found, crimeTitle);
+                    Toast.makeText(getActivity(), crimeTitle, Toast.LENGTH_SHORT).show();
+                }
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != Activity.RESULT_OK) {
             return;
@@ -156,4 +190,6 @@ public class CrimeFragment extends Fragment {
     private void updateTime() {
         mTimeButton.setText(mCrime.getTimeAsString());
     }
+
+
 }
