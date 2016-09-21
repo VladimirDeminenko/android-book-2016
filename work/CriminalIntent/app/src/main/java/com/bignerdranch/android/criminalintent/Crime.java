@@ -22,11 +22,16 @@ public class Crime {
     private SimpleDateFormat mCrimeDateTimeFormat;
 
     public Crime() {
-        mId = UUID.randomUUID();
-        mDate = new Date();
+        this(UUID.randomUUID());
+    }
+
+    public Crime(UUID id) {
         mCrimeDateFormat = new SimpleDateFormat(CRIME_DATE_FORMAT);
         mCrimeTimeFormat = new SimpleDateFormat(CRIME_TIME_FORMAT);
         mCrimeDateTimeFormat = new SimpleDateFormat(CRIME_DATE_TIME_FORMAT);
+
+        mId = id;
+        mDate = new Date();
     }
 
     public Date getDate() {

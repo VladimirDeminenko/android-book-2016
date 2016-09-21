@@ -58,6 +58,13 @@ public class CrimeFragment extends Fragment {
         mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -72,7 +79,7 @@ public class CrimeFragment extends Fragment {
             mTitleField.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence c, int start, int count, int after) {
-                    // Здесь намерено оставлено пустое место
+                    // There is intentionally blank space
                 }
 
                 @Override
@@ -82,7 +89,7 @@ public class CrimeFragment extends Fragment {
 
                 @Override
                 public void afterTextChanged(Editable c) {
-                    // И здесь тоже
+                    // And here too
                 }
             });
         }
@@ -148,7 +155,7 @@ public class CrimeFragment extends Fragment {
                 CrimeLab crimeLab = CrimeLab.get(getActivity());
                 String message = mCrime.getTitle();
 
-                if (crimeLab != null && crimeLab.removeCrime(mCrime)) {
+                if (crimeLab != null && crimeLab.deleteCrime(mCrime) > 0) {
                     message = getResources().getString(R.string.crime_has_been_deleted_format, message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     getActivity().finish();
