@@ -155,7 +155,7 @@ public class CrimeFragment extends Fragment {
                 CrimeLab crimeLab = CrimeLab.get(getActivity());
                 String message = mCrime.getTitle();
 
-                if (crimeLab != null && crimeLab.deleteCrime(mCrime) > 0) {
+                if (crimeLab != null && crimeLab.deleteCrime(mCrime)) {
                     message = getResources().getString(R.string.crime_has_been_deleted_format, message);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
                     getActivity().finish();

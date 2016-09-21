@@ -106,11 +106,11 @@ public class CrimeLab {
         mDatabase.update(CrimeTable.NAME, values, whereClause, whereArgs);
     }
 
-    public int deleteCrime(Crime crime) {
+    public boolean deleteCrime(Crime crime) {
         String uuidString = crime.getId().toString();
         String whereClause = CrimeTable.Cols.UUID + " = ? ";
         String[] whereArgs = new String[] { uuidString };
 
-        return mDatabase.delete(CrimeTable.NAME, whereClause, whereArgs);
+        return mDatabase.delete(CrimeTable.NAME, whereClause, whereArgs) > 0;
     }
 }
